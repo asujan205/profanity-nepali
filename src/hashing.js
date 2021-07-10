@@ -1,27 +1,19 @@
 import React,{useState,useEffect} from 'react';
 import './App.css';
-
+import useLocalStorage from './locallyStorageHashTable.js'
 export default function useHashedfunction(wordCheck) {
 const[key,setKey]=useState([]);
 const[hasharray,setArray]=useState([]);
 const[swearwords,setSwear]=useState([])
 let[checkVal,setCheckval]=useState();
 useEffect(()=>{
- fetch("./profanity.json").then(
-    function(res){
-    return res.json()
-  }).then(function(data){
-  // store Data in State Data Variable
-    setSwear(data)
-  }).catch(
-    function(err){
-      console.log(err, ' error')
-    }
-  )
-  
+ fetch("./profanity.json")
+ .then(res=>res.json())
+ .then(setSwear)  
 },[]) 
+var len=wordCheck.length;
 
-
+console.log(wordCheck)
 let size=swearwords.length;
 
 const hashkey=(key)=>{
@@ -37,12 +29,17 @@ const  set=(value)=>{
     if(!hasharray[index]){
       hasharray[index] = [ ];
     }
+    
+
 
     hasharray[index].push([value])
 
  
-
   }
+
+
+
+//const[array,sethashArray]=useLocalStorage(hasharray);
 
 const mapData=(swearwords)=>{
 
@@ -51,6 +48,7 @@ const mapData=(swearwords)=>{
 mapData(swearwords)
 
 const get=(value)=>{
+    
  let index=hashkey(value)
  if(!hasharray[index]) {return false}
  for(let bucket of hasharray[index]){
@@ -63,7 +61,12 @@ const get=(value)=>{
   }
  
 }
- checkVal=get(wordCheck)
+for (var i = wordCheck.length - 1; i >= 0; i--) {
+  
+ checkVal=get(wordCheck[i])
+ console.log(checkVal)
+    }
+ 
 
 
 

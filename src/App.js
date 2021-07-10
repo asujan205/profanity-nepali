@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './App.css';
-
 import useHashingfunction from './hashing.js';
 
 
@@ -8,20 +7,28 @@ const App = () => {
 
   const[text , setText] =useState('')
   const[Checkword,setCheckword]=useState('')
+  var grawlixChars = ['!','@','#','$','%','&','*'];
+const[word,setWord]=useState([])
+//const [checktext,setCheck]=useState()
 
-  
    const setNewText=(e)=>{
     setText(e.target.value);
-   
-    const word=text.split(" ")
     
-   let  m=word.length;
-   setCheckword(word[m-1]);
-   }
+   const word=text.split(' ')
+   setWord(word)
+   let m=word.length;
+ console.log(word)
+ 
+   
+   
+}
 
-const[checktext,setCheckText]=useHashingfunction(Checkword);
 
  
+
+//console.log(Checkword)
+const[checktext,setCheckText]=useHashingfunction(word)
+
   
 const replaceWord=(word)=>{
 
@@ -30,16 +37,29 @@ const replaceWord=(word)=>{
     for (i = 0, len = word.length; i < len; i++) {
       keyReplacement += '*';
     }
+    return keyReplacement;
+ 
+     /* grawlix: {
+    var keyReplacement = '',
+      grawlixLen = grawlixChars.length,
+      wordLen = word.length,
+      rand,
+      i;
+
+    for (i = 0; i < wordLen; i++) {
+      rand = Math.floor(Math.random() * grawlixLen);
+      keyReplacement += grawlixChars[rand];
+    }
+
     console.log(keyReplacement);
-
-    
-
+  }
+*/
   
 }
 if(checktext===true){
- replaceWord(Checkword);
-
-
+ let replace=replaceWord(Checkword);
+text.replace(Checkword,replace)
+console.log(replace)
 }
 
 
