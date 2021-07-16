@@ -6,14 +6,16 @@ const[key,setKey]=useState([]);
 const[hasharray,setArray]=useState([]);
 const[swearwords,setSwear]=useState([])
 let[checkVal,setCheckval]=useState();
+
+
 useEffect(()=>{
  fetch("./profanity.json")
  .then(res=>res.json())
  .then(setSwear)  
 },[]) 
-var len=wordCheck.length;
-
 console.log(wordCheck)
+
+
 let size=swearwords.length;
 
 const hashkey=(key)=>{
@@ -37,10 +39,6 @@ const  set=(value)=>{
  
   }
 
-
-
-//const[array,sethashArray]=useLocalStorage(hasharray);
-
 const mapData=(swearwords)=>{
 
  swearwords.map(data=>{set(data)})
@@ -61,15 +59,52 @@ const get=(value)=>{
   }
  
 }
-for (var i = wordCheck.length - 1; i >= 0; i--) {
-  
- checkVal=get(wordCheck[i])
- console.log(checkVal)
-    }
+
+  let word=wordCheck.split(" ")
  
+  const replaceWord=(word)=>{
 
 
+    var keyReplacement = '', i, len;
 
+    for (i = 0, len = word.length; i < len; i++) {
+      keyReplacement += '*';
+    }
+    return keyReplacement;
+ 
+     /* grawlix: {
+    var keyReplacement = '',
+      grawlixLen = grawlixChars.length,
+      wordLen = word.length,
+      rand,
+      i;
+
+    for (i = 0; i < wordLen; i++) {
+      rand = Math.floor(Math.random() * grawlixLen);
+      keyReplacement += grawlixChars[rand];
+    }
+
+    console.log(keyReplacement);
+  }
+*/
+  
+}
+
+for (var i =word.length - 1; i >= 0; i--) {
+  
+let checktext=get(word[i])
+if(checktext===true){
+
+ let replace=replaceWord(word[i]);
+
+ wordCheck=wordCheck.replace(word[i],replace);
+
+
+}  
+
+  }
+ 
+checkVal=wordCheck;
 
   return[checkVal,setCheckval];
 

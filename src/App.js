@@ -5,62 +5,23 @@ import useHashingfunction from './hashing.js';
 
 const App = () => {
 
-  const[text , setText] =useState('')
-  const[Checkword,setCheckword]=useState('')
+  let [text ,setText] =useState('')
+  let [Checkword,setCheckword]=useState('')
   var grawlixChars = ['!','@','#','$','%','&','*'];
-const[word,setWord]=useState([])
+let [word,setWord]=useState([])
 //const [checktext,setCheck]=useState()
 
    const setNewText=(e)=>{
-    setText(e.target.value);
-    
-   const word=text.split(' ')
-   setWord(word)
-   let m=word.length;
- console.log(word)
- 
-   
-   
+    setText(e.target.value);   
 }
 
 
  
 
 //console.log(Checkword)
-const[checktext,setCheckText]=useHashingfunction(word)
+const[checktext,setCheckText]=useHashingfunction(text)
 
-  
-const replaceWord=(word)=>{
-
-    var keyReplacement = '', i, len;
-
-    for (i = 0, len = word.length; i < len; i++) {
-      keyReplacement += '*';
-    }
-    return keyReplacement;
- 
-     /* grawlix: {
-    var keyReplacement = '',
-      grawlixLen = grawlixChars.length,
-      wordLen = word.length,
-      rand,
-      i;
-
-    for (i = 0; i < wordLen; i++) {
-      rand = Math.floor(Math.random() * grawlixLen);
-      keyReplacement += grawlixChars[rand];
-    }
-
-    console.log(keyReplacement);
-  }
-*/
-  
-}
-if(checktext===true){
- let replace=replaceWord(Checkword);
-text.replace(Checkword,replace)
-console.log(replace)
-}
+  text=checktext
 
 
   return (
@@ -68,8 +29,8 @@ console.log(replace)
       <h1>Profanity Checker</h1>
       <p>Enter a sentence below and clickthe button below:</p>
       <textarea cols="30" rows='10' value={text} onChange={setNewText} />
-      <br />
-      <button  >Profanity Check</button>
+      <br />{text}<br />
+  
     </div>
 
   );
