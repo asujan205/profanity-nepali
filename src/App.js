@@ -16,7 +16,7 @@ const App = () => {
       <h1>Profanity Checker</h1>
       <h1>Type word in Nepali for example : राम राम्रो मान्छे हो </h1>
       <p>Enter a sentence below and clickthe button below:</p>
-      <textarea cols="30" rows="10" value={checktext} onChange={setNewText} />
+      <textarea cols="30" rows="10" value={text} onChange={setNewText} />
       <br />
       {checktext}
       <br />
